@@ -1,13 +1,13 @@
+require 'rubygems'
 require 'pathname'
 dir = Pathname.new(__FILE__).parent
 $LOAD_PATH.unshift(dir, dir + 'lib', dir + '../lib')
 
 require 'mocha'
 require 'puppet'
-gem 'rspec', '=1.2.9'
-require 'spec/autorun'
+gem 'rspec', '>=2.6.0'
 
-Spec::Runner.configure do |config|
+Rspec.configure do |config|
     config.mock_with :mocha
 end
 
