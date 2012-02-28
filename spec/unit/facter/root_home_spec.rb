@@ -30,13 +30,13 @@ describe Facter::Util::RootHome do
     end
   end
   context "windows" do
-    let(:root_ent) { "FIXME TBD on Windows" }
-    let(:expected_root_home) { "FIXME TBD on Windows" }
+    before :each do
+      Facter.clear
+      Facter.fact(:kernel).expects(:value).returns("windows")
+    end
 
-    it "should return FIXME TBD on windows" do
-      pending "FIXME: TBD on windows"
-      Facter::Util::Resolution.expects(:exec).with("getent passwd root").returns(root_ent)
-      Facter::Util::RootHome.get_root_home.should == expected_root_home
+    it "should be nil on windows" do
+      Facter.fact(:root_home).value.should be_nil
     end
   end
 end

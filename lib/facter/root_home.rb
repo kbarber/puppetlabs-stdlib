@@ -15,3 +15,12 @@ end
 Facter.add(:root_home) do
   setcode { Facter::Util::RootHome.get_root_home }
 end
+
+Facter.add(:root_home) do
+  confine :kernel => :windows
+  setcode do
+    # REVISIT There is no root account on windows.  Perhaps
+    # we should return the home directory of Administrator
+    nil
+  end
+end
