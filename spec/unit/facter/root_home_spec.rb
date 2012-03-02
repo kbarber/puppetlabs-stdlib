@@ -29,14 +29,10 @@ describe Facter::Util::RootHome do
       Facter::Util::RootHome.get_root_home.should == expected_root_home
     end
   end
-  context "windows" do
-    before :each do
-      Facter.clear
-      Facter.fact(:kernel).expects(:value).returns("windows")
-    end
 
-    it "should be nil on windows" do
-      Facter.fact(:root_home).value.should be_nil
-    end
+  it "should be nil if command getent does not exist" do
+    # The command doesn't exist on windows
+    Facter::Util::Resolution.expects(:exec).with("getent passwd root").returns(nil)
+    Facter::Util::RootHome.get_root_home.should be_nil
   end
 end

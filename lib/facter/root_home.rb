@@ -4,23 +4,18 @@
 
 module Facter::Util::RootHome
   class << self
-  def get_root_home
-    root_ent = Facter::Util::Resolution.exec("getent passwd root")
-    # The home directory is the sixth element in the passwd entry
-    root_ent.split(":")[5]
-  end
+    def get_root_home
+      root_ent = Facter::Util::Resolution.exec("getent passwd root")
+      # The home directory is the sixth element in the passwd entry
+      if root_ent.nil?
+        return nil
+      else
+        return root_ent.split(":")[5]
+      end
+    end
   end
 end
 
 Facter.add(:root_home) do
   setcode { Facter::Util::RootHome.get_root_home }
-end
-
-Facter.add(:root_home) do
-  confine :kernel => :windows
-  setcode do
-    # REVISIT There is no root account on windows.  Perhaps
-    # we should return the home directory of Administrator
-    nil
-  end
 end
