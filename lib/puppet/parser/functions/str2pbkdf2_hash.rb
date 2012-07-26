@@ -41,17 +41,17 @@ Failing to pass the salt and iterations value is a ParseError
       raise(Puppet::ParseError, 'str2pbkdf2_hash(): The third argument, the ' +
                                 'iterations value, could not be cast to an ' +
                                 'Integer. Please pass an Integer (between ' +
-                                '10000 and 15000 is recommended). ' + e)
+                                '10000 and 15000 is recommended). ' + e.message)
     end
 
     unless password.is_a?(String)
-      raise(Puppet::ParseError, 'str2pbkdf2_hash(): The first argument, a' +
+      raise(Puppet::ParseError, 'str2pbkdf2_hash(): The first argument, a ' +
         'plaintext password, must be a String, ' +
         "you passed: #{password.class}")
     end
 
     unless salt.is_a?(String)
-      raise(Puppet::ParseError, 'str2pbkdf2_hash(): The second argument, the' +
+      raise(Puppet::ParseError, 'str2pbkdf2_hash(): The second argument, the ' +
         'password salt, must be a String (32 bytes is recommended), ' +
         "you passed: #{salt.class}")
     end
